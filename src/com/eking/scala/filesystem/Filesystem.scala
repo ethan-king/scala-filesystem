@@ -8,7 +8,7 @@ import com.eking.scala.files.Directory
 object Filesystem extends App{
 
   val root = Directory.ROOT
-  var state = State(root, root)
+  var state = State(root, root) // need var for stateful programming
   val scanner = new Scanner(System.in)
 
   while(true) {
