@@ -12,8 +12,8 @@ class Mkdir(name: String) extends Command {
       state.setMessage(name + " must not contain separators!")
     } else if (checkIllegal(name)) {
       state.setMessage(name + ": illegal entry name!")
-    }else {
-      doMkdir(name)
+    } else {
+      doMkdir(state, name)
     }
   }
 
@@ -22,10 +22,19 @@ class Mkdir(name: String) extends Command {
   }
 
   def doMkdir(state: State, name: String) : State = {
-    def updateStructure(currentDirectory: Directory, path: List[String], newEntry: DirEntry): Directory = ???
-
+    def updateStructure(currentDirectory: Directory, path: List[String], newEntry: DirEntry): Directory = {
+      if (path.isEmpty) currentDirectory.addEntry(newEntry)
+      else {
+        println(path)
+        println(path.head)
+        println(path.head.isEmpty)
+        println(currentDirectory.findEntry(path.head))
+        val oldEntry = currentDirectory.findEntry(path.head).asDirectory
+        currentDirectory.replaceEntry(oldEntry.name, updateStructure(oldEntry, path.tail, newEntry))
+      }
+    }
     val wd = state.wd
-    val fullPath = wd.path
+//    val fullPath = wd.path
 
     // 1. get all directories in full path
     val allDirsInPath = wd.getAllFoldersInPath
@@ -39,6 +48,6 @@ class Mkdir(name: String) extends Command {
     // 4. find new workingdirectory instance given wd full path in the New directory structure
     val newWd = newRoot.findDescendant(allDirsInPath)
 
-    State(newRoot, newDir)
+    State(newRoot, newWd)
   }
 }
