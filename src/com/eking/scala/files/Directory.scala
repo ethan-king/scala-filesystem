@@ -1,5 +1,7 @@
 package com.eking.scala.files
 
+import com.eking.scala.filesystem.FilesystemException
+
 import scala.annotation.tailrec
 
 class Directory(override val parentPath: String, override val name: String, val contents: List[DirEntry]) extends DirEntry(parentPath, name) {
@@ -24,6 +26,7 @@ class Directory(override val parentPath: String, override val name: String, val 
   def replaceEntry(entryName: String, newEntry: DirEntry): Directory =
     new Directory(parentPath, name, contents.filter(e => !e.name.equals(entryName)) :+ newEntry)
   override def asDirectory: Directory = this
+  def asFile: File = throw new FilesystemException("A directory cannot be coverted to a file.")
   def getType: String = "Directory"
 }
 

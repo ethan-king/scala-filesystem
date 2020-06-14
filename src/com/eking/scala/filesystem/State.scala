@@ -9,7 +9,6 @@ class State(val root: Directory, val wd: Directory, val output: String) {
     print(State.SHELL_TOKEN)
   }
 
-
   def setMessage(message: String): State =
     State(root, wd, message)
 
