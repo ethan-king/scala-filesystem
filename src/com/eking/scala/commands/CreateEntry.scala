@@ -26,10 +26,10 @@ abstract class CreateEntry(name: String) extends Command {
     def updateStructure(currentDirectory: Directory, path: List[String], newEntry: DirEntry): Directory = {
       if (path.isEmpty) currentDirectory.addEntry(newEntry)
       else {
-        println(path)
-        println(path.head)
-        println(path.head.isEmpty)
-        println(currentDirectory.findEntry(path.head))
+//        println(path)
+//        println(path.head)
+//        println(path.head.isEmpty)
+//        println(currentDirectory.findEntry(path.head))
         val oldEntry = currentDirectory.findEntry(path.head).asDirectory
         currentDirectory.replaceEntry(oldEntry.name, updateStructure(oldEntry, path.tail, newEntry))
       }
@@ -43,8 +43,6 @@ abstract class CreateEntry(name: String) extends Command {
     // 2. create new dir entry in wd
 //    val newDir = Directory.empty(wd.path, name)
     val newEntry: DirEntry = createSpecificEntry(state)
-    // TODO
-
 
     // 3. update who directory structure starting from the root - dir structure is immutable
     val newRoot = updateStructure(state.root, allDirsInPath, newEntry)

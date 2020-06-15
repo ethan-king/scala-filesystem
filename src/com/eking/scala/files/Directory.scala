@@ -25,8 +25,13 @@ class Directory(override val parentPath: String, override val name: String, val 
   }
   def replaceEntry(entryName: String, newEntry: DirEntry): Directory =
     new Directory(parentPath, name, contents.filter(e => !e.name.equals(entryName)) :+ newEntry)
+  def isRoot: Boolean = parentPath.isEmpty
   override def asDirectory: Directory = this
   def asFile: File = throw new FilesystemException("A directory cannot be coverted to a file.")
+
+  def isDirectory: Boolean = true
+
+  def isFile: Boolean = false
   def getType: String = "Directory"
 }
 
