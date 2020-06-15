@@ -47,7 +47,7 @@ abstract class CreateEntry(name: String) extends Command {
     // 3. update who directory structure starting from the root - dir structure is immutable
     val newRoot = updateStructure(state.root, allDirsInPath, newEntry)
 
-    // 4. find new workingdirectory instance given wd full path in the New directory structure
+    // 4. find new working directory instance given wd full path in the New directory structure
     val newWd = newRoot.findDescendant(allDirsInPath)
 
     State(newRoot, newWd)
