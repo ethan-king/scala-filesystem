@@ -3,9 +3,15 @@ package com.eking.scala.commands
 import com.eking.scala.filesystem.State
 
 trait Command {
-  // changes state
   def apply(state: State): State
 }
+/*
+same as:
+trait Command extends (State => State) {  // function type
+}
+ */
+
+
 object Command {
   val MKDIR = "mkdir"
   val LS = "ls"
@@ -53,7 +59,7 @@ object Command {
       case _ =>
         new UnknownCommand
     }
-    
+
 
   }
 }
